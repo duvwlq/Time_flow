@@ -237,18 +237,70 @@ class _SalaryCalendarPageState extends State<SalaryCalendarPage> {
         itemCount: transactions.length,
         itemBuilder: (context, index) {
           final transaction = transactions[index];
-          return ListTile(
+          return Container(
+            margin: EdgeInsets.only(bottom: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              leading: Icon(
+                transaction['type'] == '월급'
+                    ? Icons.attach_money
+                    : transaction['type'] == '출금'
+                    ? Icons.money_off
+                    : Icons.account_balance_wallet,
+                color: transaction['type'] == '월급'
+                    ? Colors.green
+                    : transaction['type'] == '출금'
+                    ? Colors.red
+                    : Colors.blue,
+              ),
+              title: Text('${transaction['type']} - ${transaction['amount']}원'),
+              trailing: IconButton(
+                icon: Icon(Icons.delete, color: Colors.red),
+                onPressed: () {
+                  setState(() {
+                    transactions.removeAt(index);
+                    _saveTransactions();
+                  });
+                },
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+/*
+Widget _buildTransactionList(DateTime selectedDay) {
+  final transactions = _transactions[selectedDay] ?? [];
+  return Expanded(
+    child: ListView.builder(
+      itemCount: transactions.length,
+      itemBuilder: (context, index) {
+        final transaction = transactions[index];
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          color: Colors.white,
+          child: ListTile(
             leading: Icon(
               transaction['type'] == '월급'
                   ? Icons.attach_money
                   : transaction['type'] == '출금'
-                  ? Icons.money_off
-                  : Icons.account_balance_wallet,
+                      ? Icons.money_off
+                      : Icons.account_balance_wallet,
               color: transaction['type'] == '월급'
                   ? Colors.green
                   : transaction['type'] == '출금'
-                  ? Colors.red
-                  : Colors.blue,
+                      ? Colors.red
+                      : Colors.blue,
             ),
             title: Text('${transaction['type']} - ${transaction['amount']}원'),
             trailing: IconButton(
@@ -260,12 +312,13 @@ class _SalaryCalendarPageState extends State<SalaryCalendarPage> {
                 });
               },
             ),
-          );
-        },
-      ),
-    );
-  }
-
+          ),
+        );
+      },
+    ),
+  );
+}
+ */
   double _calculateTotalSalary(DateTime focusedDay) {
     double totalSalary = 0.0;
     _transactions.forEach((date, transactions) {
