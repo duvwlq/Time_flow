@@ -48,7 +48,7 @@ class _BlinkListState extends State<HomePage> {
                   SizedBox(width: 130),
                   Center(
                     child: Text(
-                      'BlinkList',
+                      'Time-flow',
                       style: TextStyle(
                         color: isDarkMode ? Colors.white : Colors.black87,
                         fontSize: 20,

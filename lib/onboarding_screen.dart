@@ -20,7 +20,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: LiquidSwipe(
         pages: [
-          IntroPage1(),
+          //IntroPage1(),
           HomePage(),
           SalaryCalendarPage(),
         ],
