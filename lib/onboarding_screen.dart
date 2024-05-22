@@ -14,26 +14,46 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController pageController = PageController();
   int currentPage = 0;
+  final List<Widget> _navIndex = [
+    IntroPage1(),
+    HomePage(),
+    SalaryCalendarPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LiquidSwipe(
-        pages: [
-          //IntroPage1(),
-          HomePage(),
-          SalaryCalendarPage(),
+      body: _navIndex.elementAt(currentPage),
+
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.blue,
+        unselectedItemColor: Colors.blueGrey,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.my_library_books_outlined),
+            label: '메인',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.my_library_books_outlined),
+            label: '일정',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: '입출금 달력',
+          ),
         ],
-        onPageChangeCallback: (page) {
-          setState(() {
-            currentPage = page;
-          });
-        },
-        waveType: WaveType.liquidReveal,
-        slideIconWidget: const Icon(Icons.arrow_back_ios), // Add a back icon
-        enableLoop: false, // Disable loop for preventing going to the previous page
+        currentIndex: currentPage,
+        onTap: _onNavTapped,
       ),
 
     );
+  }
+
+  void _onNavTapped(int index) {
+    setState(() {
+      currentPage = index;
+    });
   }
 }

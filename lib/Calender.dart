@@ -273,52 +273,6 @@ class _SalaryCalendarPageState extends State<SalaryCalendarPage> {
       ),
     );
   }
-
-/*
-Widget _buildTransactionList(DateTime selectedDay) {
-  final transactions = _transactions[selectedDay] ?? [];
-  return Expanded(
-    child: ListView.builder(
-      itemCount: transactions.length,
-      itemBuilder: (context, index) {
-        final transaction = transactions[index];
-        return Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          color: Colors.white,
-          child: ListTile(
-            leading: Icon(
-              transaction['type'] == '월급'
-                  ? Icons.attach_money
-                  : transaction['type'] == '출금'
-                      ? Icons.money_off
-                      : Icons.account_balance_wallet,
-              color: transaction['type'] == '월급'
-                  ? Colors.green
-                  : transaction['type'] == '출금'
-                      ? Colors.red
-                      : Colors.blue,
-            ),
-            title: Text('${transaction['type']} - ${transaction['amount']}원'),
-            trailing: IconButton(
-              icon: Icon(Icons.delete, color: Colors.red),
-              onPressed: () {
-                setState(() {
-                  transactions.removeAt(index);
-                  _saveTransactions();
-                });
-              },
-            ),
-          ),
-        );
-      },
-    ),
-  );
-}
- */
   double _calculateTotalSalary(DateTime focusedDay) {
     double totalSalary = 0.0;
     _transactions.forEach((date, transactions) {
