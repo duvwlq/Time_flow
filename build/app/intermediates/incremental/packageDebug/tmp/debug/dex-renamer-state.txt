@@ -1,1 +1,4 @@
-#Sat May 25 16:23:17 KST 2024
+#Mon May 27 20:39:27 KST 2024
+base.0=C\:\\Users\\dnjs8\\StudioProjects\\Time_flow\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

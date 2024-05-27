@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:blink_list/onboarding_screen.dart';
-import 'package:blink_list/Calender.dart';
+import 'package:blink_list/Calender.dart'; // 이 부분은 실제 파일 이름으로 수정해주세요
+import 'package:blink_list/healthrecordlistpage.dart'; // 건강 기록 페이지로 수정해주세요
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('ko_KR', null); // 한글 날짜 형식 초기화
+  await initializeDateFormatting('ko_KR', null);
   runApp(const MyApp());
 }
 
@@ -19,17 +21,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.notoSansTextTheme(), // 한글 지원 폰트 설정
+        textTheme: GoogleFonts.notoSansTextTheme(),
       ),
-      initialRoute: '/', // 초기 라우트 설정
+      initialRoute: '/',
       routes: {
-        '/': (context) => OnBoardingScreen(), // 기본 라우트는 온보딩 스크린
-        '/calendar': (context) => SalaryCalendarPage(), // 캘린더 페이지의 라우트
+        '/': (context) => OnBoardingScreen(),
+        '/calendar': (context) => SalaryCalendarPage(), // 실제 파일 이름으로 수정
+        '/health_records': (context) => HealthRecordListPage(), // 건강 기록 페이지 추가
       },
-      locale: const Locale('ko', 'KR'), // 기본 로케일을 한국어로 설정
+      locale: const Locale('ko', 'KR'),
       supportedLocales: const [
-        Locale('en', 'US'), // 영어 지원
-        Locale('ko', 'KR'), // 한국어 지원
+        Locale('en', 'US'),
+        Locale('ko', 'KR'),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

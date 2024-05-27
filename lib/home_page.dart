@@ -7,10 +7,10 @@ class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _BlinkListState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _BlinkListState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   final todosList = ToDo.todoList();
   final _todoController = TextEditingController();
   final _categoryController = TextEditingController();
@@ -249,31 +249,32 @@ class _BlinkListState extends State<HomePage> {
 
   Widget searchBox() {
     return Container(
-      decoration: BoxDecoration(
+        decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
+    ),
+    child
+        : TextField(
+      onChanged: (value) => _runFilter(value),
+      style: TextStyle(
+        color: isDarkMode ? Colors.black : Colors.black87,
       ),
-      child: TextField(
-        onChanged: (value) => _runFilter(value),
-        style: TextStyle(
-          color: isDarkMode ? Colors.black : Colors.black87,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(0),
+        prefixIcon: Icon(
+          Icons.search,
+          color: Colors.black87,
+          size: 18,
         ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.black87,
-            size: 18,
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxHeight: 25,
-            minWidth: 25,
-          ),
-          border: InputBorder.none,
-          hintText: "Search",
-          hintStyle: TextStyle(color: Colors.grey),
+        prefixIconConstraints: BoxConstraints(
+          maxHeight: 25,
+          minWidth: 25,
         ),
+        border: InputBorder.none,
+        hintText: "Search",
+        hintStyle: TextStyle(color: Colors.grey),
       ),
+    ),
     );
   }
 
