@@ -55,7 +55,7 @@ class _IntroPage1State extends State<IntroPage1> with SingleTickerProviderStateM
                   child: Opacity(
                     opacity: _opacityAnimation.value,
                     child: Text(
-                      "BlinkList",
+                      "Allendar",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 45,
@@ -78,9 +78,9 @@ class _IntroPage1State extends State<IntroPage1> with SingleTickerProviderStateM
             ),
           ),
           Lottie.network(
-            'https://lottie.host/0f3304ea-5393-479e-b920-af3967db1363/hsgcmkLP29.json', // Replace with the path to your Lottie animation
-            height: 120, // Adjust the height as needed
-            width: 120, // Adjust the width as needed
+            'https://lottie.host/0f3304ea-5393-479e-b920-af3967db1363/hsgcmkLP29.json',
+            height: 120,
+            width: 120,
           ),
         ],
       ),

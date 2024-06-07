@@ -1,14 +1,16 @@
 class ToDo {
-  String id;
-  String todoText;
+  String? id;
+  String? todoText;
   bool isDone;
-  String category;
+  String? category;
+  DateTime? deadline;
 
   ToDo({
     required this.id,
     required this.todoText,
     this.isDone = false,
-    required this.category,
+    this.category,
+    this.deadline,
   });
 
   static List<ToDo> todoList() {

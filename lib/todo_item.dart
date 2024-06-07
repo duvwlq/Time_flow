@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:blink_list/model/todo.dart';
+import 'package:intl/intl.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
@@ -15,7 +16,11 @@ class ToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
+    final bool isOverdue = todo.deadline != null && todo.deadline!.isBefore(DateTime.now());
+
     return Card(
+      color: isOverdue ? Colors.red[50] : Colors.white,
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         leading: Checkbox(
@@ -25,16 +30,29 @@ class ToDoItem extends StatelessWidget {
           },
         ),
         title: Text(
-          todo.todoText,
+          todo.todoText ?? '',
           style: TextStyle(
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
+            color: isOverdue ? Colors.red : null,
           ),
         ),
-        subtitle: Text(todo.category), // 카테고리 이름 표시
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(todo.category ?? ''),
+            if (todo.deadline != null)
+              Text(
+                'Deadline: ${dateFormat.format(todo.deadline!)}',
+                style: TextStyle(
+                  color: isOverdue ? Colors.red : null,
+                ),
+              ),
+          ],
+        ),
         trailing: IconButton(
           icon: Icon(Icons.delete, color: Colors.red),
           onPressed: () {
-            onDeleteItem(todo.id);
+            onDeleteItem(todo.id!);
           },
         ),
       ),

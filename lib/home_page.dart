@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:blink_list/todo_item.dart';
 import 'package:blink_list/model/todo.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
+import 'package:blink_list/calendar_page.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -13,7 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final todosList = ToDo.todoList();
   final _todoController = TextEditingController();
-  final _categoryController = TextEditingController();
   List<ToDo> _foundToDo = [];
   bool isDarkMode = false;
   Color lightModeColor = Colors.deepPurple[50]!;
@@ -21,10 +24,42 @@ class _HomePageState extends State<HomePage> {
   String _selectedCategory = 'All';
   List<String> categories = ['All'];
 
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   @override
   void initState() {
     _foundToDo = todosList;
     super.initState();
+    var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = IOSInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> _scheduleNotification(ToDo todo) async {
+    var scheduledNotificationDateTime = todo.deadline;
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'your_channel_id',
+      'your_channel_name',
+      channelDescription: 'your_channel_description',
+      icon: '@mipmap/ic_launcher',
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics
+    );
+
+    if (scheduledNotificationDateTime != null && scheduledNotificationDateTime.isBefore(DateTime.now())) {
+      await flutterLocalNotificationsPlugin.show(
+        0,
+        'ToDo 마감기한 알람',
+        '${todo.todoText}의 마감기한이 지났습니다',
+        platformChannelSpecifics,
+      );
+    }
   }
 
   @override
@@ -49,15 +84,28 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Row(
                 children: [
-                  Icon(
-                    Icons.menu_rounded,
-                    color: isDarkMode ? Colors.white : Colors.black87,
-                    size: 30,
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CalendarPage(
+                          todosList: todosList,
+                          onToDoChanged: _handleToDoChange,
+                          onDeleteItem: _deleteToDoItem,
+                          backgroundColor: isDarkMode ? darkModeColor : lightModeColor,
+                        ),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.calendar_today,
+                      color: isDarkMode ? Colors.white : Colors.black87,
+                      size: 30,
+                    ),
                   ),
                   SizedBox(width: screenWidth * 0.2),
                   Center(
                     child: Text(
-                      'Time-flow',
+                      '일정 관리',
                       style: TextStyle(
                         color: isDarkMode ? Colors.white : Colors.black87,
                         fontSize: 20,
@@ -112,6 +160,19 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  GestureDetector(
+                    onTap: () => _deleteCategoryDialog(context),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: ClipRRect(
+                        child: Icon(
+                          Icons.remove_circle_outline,
+                          color: isDarkMode ? Colors.white : Colors.black87,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -151,57 +212,16 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        bottom: 20,
-                        right: 20,
-                        left: 20,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextField(
-                        controller: _todoController,
-                        style: TextStyle(
-                          color: isDarkMode ? Colors.black : Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: 'Add a new todo item',
-                          hintStyle: TextStyle(
-                            color: isDarkMode ? Colors.grey : Colors.black54,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      bottom: 20,
-                      right: 20,
-                    ),
-                    child: ElevatedButton(
-                      child: Text('+', style: TextStyle(fontSize: 40,),),
-                      onPressed: () {
-                        _addToDoItem(_todoController.text, _selectedCategory);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        minimumSize: Size(60, 60),
-                        elevation: 10,
-                      ),
-                    ),
-                  ),
-                ],
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    _addToDoItem(context);
+                  },
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.deepPurple,
+                ),
               ),
             ),
           ],
@@ -222,16 +242,81 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _addToDoItem(String toDo, String category) {
-    setState(() {
-      todosList.add(ToDo(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        todoText: toDo,
-        category: category,
-      ));
-    });
-    _todoController.clear();
-    _categoryController.clear();
+  void _addToDoItem(BuildContext context) {
+    final _newToDoController = TextEditingController();
+    DateTime? _selectedDeadline;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('새로운 할 일 추가'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: _newToDoController,
+                  decoration: InputDecoration(
+                    hintText: '할 일 입력',
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    _selectedDeadline = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (_selectedDeadline != null) {
+                      TimeOfDay? selectedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (selectedTime != null) {
+                        _selectedDeadline = DateTime(
+                          _selectedDeadline!.year,
+                          _selectedDeadline!.month,
+                          _selectedDeadline!.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                      }
+                    }
+                  },
+                  child: Text(_selectedDeadline == null
+                      ? '마감기한 설정'
+                      : 'Selected: ${DateFormat('yyyy-MM-dd HH:mm').format(_selectedDeadline!)}'),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('추가'),
+              onPressed: () {
+                if (_newToDoController.text.isNotEmpty) {
+                  ToDo newToDo = ToDo(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    todoText: _newToDoController.text,
+                    category: _selectedCategory,
+                    deadline: _selectedDeadline,
+                  );
+                  setState(() {
+                    todosList.add(newToDo);
+                  });
+                  if (_selectedDeadline != null) {
+                    _scheduleNotification(newToDo);
+                  }
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _runFilter(String enteredKeyword) {
@@ -240,7 +325,7 @@ class _HomePageState extends State<HomePage> {
       results = todosList;
     } else {
       results = todosList.where((item) =>
-          item.todoText!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
+      item.todoText?.toLowerCase().contains(enteredKeyword.toLowerCase()) ?? false).toList();
     }
     setState(() {
       _foundToDo = results;
@@ -249,32 +334,32 @@ class _HomePageState extends State<HomePage> {
 
   Widget searchBox() {
     return Container(
-        decoration: BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-    ),
-    child
-        : TextField(
-      onChanged: (value) => _runFilter(value),
-      style: TextStyle(
-        color: isDarkMode ? Colors.black : Colors.black87,
       ),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(0),
-        prefixIcon: Icon(
-          Icons.search,
-          color: Colors.black87,
-          size: 18,
+      child
+          : TextField(
+        onChanged: (value) => _runFilter(value),
+        style: TextStyle(
+          color: isDarkMode ? Colors.black : Colors.black87,
         ),
-        prefixIconConstraints: BoxConstraints(
-          maxHeight: 25,
-          minWidth: 25,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black87,
+            size: 18,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 25,
+            minWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: "Search",
+          hintStyle: TextStyle(color: Colors.grey),
         ),
-        border: InputBorder.none,
-        hintText: "Search",
-        hintStyle: TextStyle(color: Colors.grey),
       ),
-    ),
     );
   }
 
@@ -351,7 +436,7 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text('Done'),
+              child: const Text('완료'),
               onPressed: () {
                 setState(() {});
                 Navigator.of(context).pop();
@@ -370,14 +455,14 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Add New Category'),
+          title: const Text('새로운 카테고리 추가'),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 TextField(
                   controller: _newCategoryController,
                   decoration: InputDecoration(
-                    hintText: 'Category Name',
+                    hintText: '카테고리 이름',
                   ),
                 ),
               ],
@@ -385,7 +470,7 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text('Add'),
+              child: const Text('추가'),
               onPressed: () {
                 setState(() {
                   categories.add(_newCategoryController.text);
@@ -397,5 +482,54 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void _deleteCategoryDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('카테고리 삭제'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: categories.map((category) {
+                if (category != 'All') {
+                  return ListTile(
+                    title: Text(category),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        _deleteCategory(category);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              }).toList(),
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('닫기'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _deleteCategory(String category) {
+    setState(() {
+      categories.remove(category);
+      if (_selectedCategory == category) {
+        _selectedCategory = 'All';
+        _filterByCategory();
+      }
+    });
   }
 }

@@ -5,7 +5,7 @@ class AddHealthRecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 여기에 건강기록을 작성하는 UI를 구현하세요
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Health Record'),

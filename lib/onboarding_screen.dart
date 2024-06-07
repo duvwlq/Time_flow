@@ -4,7 +4,7 @@ import 'package:blink_list/home_page.dart';
 import 'package:blink_list/intro_screens/intro_page_1.dart';
 import 'package:blink_list/Calender.dart';
 import 'package:blink_list/AddHealthRecordPage.dart';
-import 'package:blink_list/AddDiaryPage.dart'; // AddDiaryPage import 추가
+import 'package:blink_list/AddDiaryPage.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);

@@ -3,9 +3,15 @@
   "packages": [
     {
       "name": "archive",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.4.9",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.6.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "args",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "async",
@@ -38,12 +44,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "convert",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/convert-3.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
       "name": "crypto",
       "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
       "packageUri": "lib/",
@@ -54,6 +54,12 @@
       "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "dbus",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "fake_async",
@@ -69,15 +75,15 @@
     },
     {
       "name": "file",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.0",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/file-6.1.4",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter",
       "rootUri": "file:///C:/flutter%20sdk/flutter/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "flutter_colorpicker",
@@ -92,6 +98,24 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_local_notifications",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications-9.9.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_local_notifications_linux",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications_linux-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_local_notifications_platform_interface",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications_platform_interface-5.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_localizations",
       "rootUri": "file:///C:/flutter%20sdk/flutter/packages/flutter_localizations",
       "packageUri": "lib/",
@@ -101,7 +125,7 @@
       "name": "flutter_test",
       "rootUri": "file:///C:/flutter%20sdk/flutter/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "flutter_web_plugins",
@@ -129,33 +153,27 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "js",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.0",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.4",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.2"
     },
     {
       "name": "leak_tracker_flutter_testing",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-2.0.1",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.3",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.2"
     },
     {
       "name": "leak_tracker_testing",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-2.0.1",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.2"
     },
     {
       "name": "lints",
@@ -189,7 +207,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.11.0",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -213,9 +231,9 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.4",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.5",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.4"
     },
     {
       "name": "path_provider_foundation",
@@ -242,6 +260,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "petitparser",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.4",
       "packageUri": "lib/",
@@ -254,14 +278,14 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "pointycastle",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.3",
+      "name": "process",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "provider",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.1",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -273,9 +297,9 @@
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.2.2",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.2.3",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.4"
     },
     {
       "name": "shared_preferences_foundation",
@@ -345,9 +369,9 @@
     },
     {
       "name": "table_calendar",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.0.9",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "term_glyph",
@@ -357,9 +381,15 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.6.1",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "timezone",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/timezone-0.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
@@ -375,9 +405,9 @@
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-13.0.0",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "web",
@@ -387,15 +417,21 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.5.0",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.5.1",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.4",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-0.2.0+3",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "xml",
+      "rootUri": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "blink_list",
@@ -404,7 +440,10 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-27T11:17:53.087828Z",
+  "generated": "2024-06-07T06:13:42.311615Z",
   "generator": "pub",
-  "generatorVersion": "3.3.3"
+  "generatorVersion": "3.4.1",
+  "flutterRoot": "file:///C:/flutter%20sdk/flutter",
+  "flutterVersion": "3.22.1",
+  "pubCache": "file:///C:/Users/dnjs8/AppData/Local/Pub/Cache"
 }
