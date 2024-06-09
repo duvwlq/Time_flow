@@ -34,9 +34,9 @@ class _CalendarPageState extends State<CalendarPage> {
       body: Column(
         children: [
           TableCalendar(
-            firstDay: DateTime.utc(2000, 1, 1),
+            firstDay: DateTime.utc(2000, 1, 1), // 날짜 범위 설정
             lastDay: DateTime.utc(2100, 12, 31),
-            focusedDay: _focusedDay,
+            focusedDay: _focusedDay, // 현재 포커스된 날짜
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
@@ -56,7 +56,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 shape: BoxShape.circle,
               ),
             ),
-            eventLoader: _getEventsForDay,
+            eventLoader: _getEventsForDay, // 특정 날짜에 할 일이 있는지 확 인
             calendarBuilders: CalendarBuilders(
               markerBuilder: (context, date, events) {
                 if (events.isNotEmpty) {
@@ -87,7 +87,7 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
-  List<ToDo> _getEventsForDay(DateTime day) {
+  List<ToDo> _getEventsForDay(DateTime day) { // 특정 날짜의 할 일 표시
     return widget.todosList.where((todo) {
       return todo.deadline != null &&
           todo.deadline!.year == day.year &&
@@ -96,7 +96,7 @@ class _CalendarPageState extends State<CalendarPage> {
     }).toList();
   }
 
-  Widget _buildEventsMarker() {
+  Widget _buildEventsMarker() { // 할 일이 있는 날 아래에 빨간 점 표시
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,

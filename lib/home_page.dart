@@ -15,14 +15,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final todosList = ToDo.todoList();
-  final _todoController = TextEditingController();
-  List<ToDo> _foundToDo = [];
-  bool isDarkMode = false;
-  Color lightModeColor = Colors.deepPurple[50]!;
-  Color darkModeColor = Colors.grey[900]!;
-  String _selectedCategory = 'All';
-  List<String> categories = ['All'];
+  final todosList = ToDo.todoList(); // 초기 할 일 목록
+  final _todoController = TextEditingController(); // 할 일 입력을 위한 컨트롤러
+  List<ToDo> _foundToDo = []; // 검색 결과에 표시될 할 일 목록
+  bool isDarkMode = false; // 다크 모드 상태 변수
+  Color lightModeColor = Colors.deepPurple[50]!; // 라이트 모드 배경색
+  Color darkModeColor = Colors.grey[900]!; // 다크 모드 배경색
+  String _selectedCategory = 'All'; // 선택된 카테고리
+  List<String> categories = ['All']; // 카테고리 목록
 
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> _scheduleNotification(ToDo todo) async {
+  Future<void> _scheduleNotification(ToDo todo) async { // 마감기한이 지났을 때를 위함 알람 함수
     var scheduledNotificationDateTime = todo.deadline;
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'your_channel_id',
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return MaterialApp(
+    return MaterialApp( //기본 레이아웃 설정
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: isDarkMode ? Brightness.dark : Brightness.light,
@@ -76,9 +76,9 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
         ),
       ),
-      home: Scaffold(
+      home: Scaffold( // 기본 레이아웃 설정
         backgroundColor: isDarkMode ? darkModeColor : lightModeColor,
-        appBar: AppBar(
+        appBar: AppBar( // 캘린더 페이지 이동, 다크모드, 색상 편집기, 카테고리 추가 및 삭제 버튼
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: FloatingActionButton(
+                child: FloatingActionButton( //새로운 할 일 추가 버튼
                   onPressed: () {
                     _addToDoItem(context);
                   },
@@ -230,19 +230,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _handleToDoChange(ToDo todo) {
+  void _handleToDoChange(ToDo todo) { // 할 일 항목의 완료 상태
     setState(() {
       todo.isDone = !todo.isDone;
     });
   }
 
-  void _deleteToDoItem(String id) {
+  void _deleteToDoItem(String id) { // 할 일 항목 삭제
     setState(() {
       todosList.removeWhere((item) => item.id == id);
     });
   }
 
-  void _addToDoItem(BuildContext context) {
+  void _addToDoItem(BuildContext context) { // 새로운 할 일 항목 추가, 마감기한 설정, 마감기한이 있는 경우 알람 설정
     final _newToDoController = TextEditingController();
     DateTime? _selectedDeadline;
 
@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _runFilter(String enteredKeyword) {
+  void _runFilter(String enteredKeyword) { // 할 일 검색 기능
     List<ToDo> results = [];
     if (enteredKeyword.isEmpty) {
       results = todosList;
@@ -332,7 +332,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget searchBox() {
+  Widget searchBox() { // 검색 기능 필드
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -363,7 +363,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget categoryFilter() {
+  Widget categoryFilter() { // 카테고리 필터링
     return Container(
       margin: EdgeInsets.only(top: 20, bottom: 20),
       child: SingleChildScrollView(
@@ -378,7 +378,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCategoryChip(String category) {
+  Widget _buildCategoryChip(String category) { // 카테고리 선택
     return ChoiceChip(
       label: Text(category),
       selected: _selectedCategory == category,
@@ -391,7 +391,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _filterByCategory() {
+  void _filterByCategory() { // 선택된 카테고리에 따라 할 일 필터링
     List<ToDo> results = [];
     if (_selectedCategory == 'All') {
       results = todosList;
@@ -403,7 +403,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _openColorPicker(BuildContext context) {
+  void _openColorPicker(BuildContext context) { // 색상을 커스텀 할 수 있는 다이얼로그 열기
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -448,7 +448,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _addCategory(BuildContext context) {
+  void _addCategory(BuildContext context) { // 카테고리 추가하는 다이얼로그
     final _newCategoryController = TextEditingController();
 
     showDialog(
@@ -484,7 +484,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _deleteCategoryDialog(BuildContext context) {
+  void _deleteCategoryDialog(BuildContext context) { // 카테고리 삭제 다이얼로그
     showDialog(
       context: context,
       builder: (BuildContext context) {

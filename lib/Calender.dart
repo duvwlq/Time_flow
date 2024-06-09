@@ -30,7 +30,7 @@ class SalaryCalendarPage extends StatefulWidget {
 }
 
 class _SalaryCalendarPageState extends State<SalaryCalendarPage> {
-  late Map<DateTime, List<Map<String, dynamic>>> _transactions; // 거래 정보를 저장하는 맵입니다.
+  late Map<DateTime, List<Map<String, dynamic>>> _transactions; // 거래 정보를 저장하는 맵.
   late DateTime _selectedDay; // 사용자가 선택한 날짜를 저장.
   late DateTime _focusedDay; // 포커스된 날짜를 저장.
 
